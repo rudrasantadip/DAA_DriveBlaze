@@ -136,16 +136,16 @@ class LinkedList {
 
 
      public void deleteMiddle(){
-        if(head==null){
+        if(head==null || head.next==null){
             return;
         }
 
         Node slow = head,fast=head;
         Node prev=null;
 
-        while (fast.next!=null && fast.next.next!=null){
-            fast=fast.next.next;
+        while (fast!=null && fast.next!=null){
             prev=slow;
+            fast=fast.next.next;
             slow=slow.next;
         }
         prev.next=slow.next;
@@ -162,6 +162,7 @@ public class Main {
         l1.insertAtEnd(3);
         l1.insertAtEnd(4);
         l1.insertAtEnd(5);
+        l1.insertAtEnd(6);
 
 
         l1.deleteMiddle();
