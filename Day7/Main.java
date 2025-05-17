@@ -184,6 +184,8 @@ class LinkedList {
     }
 
 
+    // Delete a given node in a linkedllist;
+    
     public void delete(int x){
         Node temp=head;
         Node prev=null;
@@ -194,6 +196,10 @@ class LinkedList {
         prev.next=temp.next;
     }
 
+
+    /*
+     * Insert in a sorted linkedlist
+     */
     Node insertInSorted(int key){
         if(head==null){
             return null;
@@ -239,6 +245,60 @@ class LinkedList {
      }
 
 
+     /*
+      * Given a linked list sorted in ascending order and an integer called key,
+       insert data in the linked list such that the list remains sorted.
+      */
+      Node sortedInsert(Node head, int key) {
+      if(head==null){
+            return new Node(key);
+        }
+        
+       
+        Node temp=head;
+        Node prev=null;
+        while(temp!=null && key>temp.data){
+            prev=temp;
+            temp=temp.next;
+        }
+        
+        
+        Node newNode = new Node(key);
+        if(prev==null){
+            newNode.next=head;
+            head=newNode;
+        }
+        else{
+            prev.next=newNode;
+            newNode.next=temp;
+        }
+        
+        return head;
+    }
+
+    /* 
+     *Given an unsorted linked list. The task is to remove duplicate elements from this unsorted Linked List. 
+     When a value appears in multiple nodes, 
+     the node which appeared first should be kept, all other duplicates are to be removed. 
+    */
+
+     public Node removeDuplicates(Node head) {
+        // Your code here
+        java.util.LinkedHashSet<Integer> nodes = new java.util.LinkedHashSet<>();
+        Node temp=head;
+        while(temp!=null){
+            nodes.add(temp.data);
+            temp=temp.next;
+        }
+        
+        Node newHead = new Node(-1);
+        Node dummy=newHead;
+        for(int i:nodes){
+            dummy.next = new Node(i);
+            dummy=dummy.next;
+        }
+        return newHead.next;
+    }
 }
 
 public class Main {
