@@ -182,23 +182,79 @@ class LinkedList {
         nonZero.next=null;
         return zeroHead.next;
     }
+
+
+    public void delete(int x){
+        Node temp=head;
+        Node prev=null;
+        for(int i=1;i<x;i++){
+            prev=temp;
+            temp=temp.next;
+        }
+        prev.next=temp.next;
+    }
+
+    Node insertInSorted(int key){
+        if(head==null){
+            return null;
+        }
+        
+        Node temp=head;
+        Node prev=null;
+
+        while(temp.data>key && temp!=null){
+            prev=temp;
+            temp=temp.next;
+        }
+
+        Node newNode = new Node(key);
+        
+        if(prev==null){
+            newNode.next=head;
+            head=newNode;
+        }else{
+            prev.next=newNode;
+            newNode.next=temp;
+        }
+        return head;
+    }
+
+    /*
+     * Remove Nth Node From End of List
+     * Given the head of a linked list, remove the nth node from the end of the list and return its head.
+     */
+
+     public void deleteFromEnd(int n){
+        Node slow=head;
+        Node fast=head;
+
+        for(int i=1;i<=n;i++){
+            fast=fast.next;
+        }
+        while(fast.next!=null){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        slow.next=slow.next.next;
+     }
+
+
 }
 
 public class Main {
 
     public static void main(String[] args) {
         LinkedList l1 = new LinkedList();
-        l1.insertAtEnd(0);
+        l1.insertAtEnd(1);
+        l1.insertAtEnd(2);
+        l1.insertAtEnd(3);
         l1.insertAtEnd(4);
-        l1.insertAtEnd(0);
         l1.insertAtEnd(5);
-        l1.insertAtEnd(5);
-        l1.insertAtEnd(0);
-        l1.insertAtEnd(6);
 
-        Node zeros = l1.moveZeroes(l1.head);
+        int x = 2;
+        l1.deleteFromEnd(x);
 
-        LinkedList.printList(zeros);
+        l1.printList();
 
     }
 
