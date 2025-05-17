@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class Node {
     int data;
     Node next;
@@ -185,7 +188,7 @@ class LinkedList {
 
 
     // Delete a given node in a linkedllist;
-    
+
     public void delete(int x){
         Node temp=head;
         Node prev=null;
@@ -208,7 +211,7 @@ class LinkedList {
         Node temp=head;
         Node prev=null;
 
-        while(temp.data>key && temp!=null){
+        while(temp!=null && temp.data<key){
             prev=temp;
             temp=temp.next;
         }
@@ -299,6 +302,45 @@ class LinkedList {
         }
         return newHead.next;
     }
+
+
+    /*
+     * 
+     */
+
+public static Node findIntersection(Node head1, Node head2) {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    
+    // Count frequencies of elements in list1
+    Node temp1 = head1;
+    while (temp1 != null) {
+        map.put(temp1.data, map.getOrDefault(temp1.data, 0) + 1);
+        temp1 = temp1.next;
+    }
+    
+    Node dummy = new Node(-1);
+    Node temp = dummy;
+    
+    // For elements in list2, if they appear in map and count > 0, add to result
+    Node temp2 = head2;
+    while (temp2 != null) {
+        int count = map.getOrDefault(temp2.data, 0);
+        if (count > 0) {
+            temp.next = new Node(temp2.data);
+            temp = temp.next;
+            map.put(temp2.data, count - 1); // decrement count to avoid duplicates
+        }
+        temp2 = temp2.next;
+    }
+    
+    return dummy.next;
+}
+
+/*
+ * Given the head of two sorted linked lists consisting of nodes respectively.
+ * The task is to merge both lists and return the head of the sorted merged list.
+ */
+
 }
 
 public class Main {
@@ -309,12 +351,16 @@ public class Main {
         l1.insertAtEnd(2);
         l1.insertAtEnd(3);
         l1.insertAtEnd(4);
-        l1.insertAtEnd(5);
+        l1.insertAtEnd(6);
 
-        int x = 2;
-        l1.deleteFromEnd(x);
+       LinkedList l2 = new LinkedList();
+       l2.insertAtEnd(2);
+       l2.insertAtEnd(4);
+       l2.insertAtEnd(6);
 
-        l1.printList();
+
+       Node intersection = LinkedList.findIntersection(l1.head, l2.head);
+       LinkedList.printList(intersection);
 
     }
 
