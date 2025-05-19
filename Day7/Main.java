@@ -137,209 +137,224 @@ class LinkedList {
      * If the input linked list has a single node, then it should return NULL.
      */
 
-
-     public void deleteMiddle(){
-        if(head==null || head.next==null){
+    public void deleteMiddle() {
+        if (head == null || head.next == null) {
             return;
         }
 
-        Node slow = head,fast=head;
-        Node prev=null;
+        Node slow = head, fast = head;
+        Node prev = null;
 
-        while (fast!=null && fast.next!=null){
-            prev=slow;
-            fast=fast.next.next;
-            slow=slow.next;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            fast = fast.next.next;
+            slow = slow.next;
         }
-        prev.next=slow.next;
-        slow.next=null;
-     }
+        prev.next = slow.next;
+        slow.next = null;
+    }
 
-     public Node moveZeroes(Node head) {
+    public Node moveZeroes(Node head) {
         // Your Code here.
-        
-        if(head==null){
+
+        if (head == null) {
             return null;
         }
-        
-        Node zeroHead=new Node(-1);
-        Node zero=zeroHead;
-        Node nonZeroHead=new Node(-1);
-        Node nonZero=nonZeroHead;
-        
-        Node temp=head;
-        
-        while(temp!=null){
-            if(temp.data==0){
-               zero.next=temp; 
-               zero=zero.next;
+
+        Node zeroHead = new Node(-1);
+        Node zero = zeroHead;
+        Node nonZeroHead = new Node(-1);
+        Node nonZero = nonZeroHead;
+
+        Node temp = head;
+
+        while (temp != null) {
+            if (temp.data == 0) {
+                zero.next = temp;
+                zero = zero.next;
+            } else {
+                nonZero.next = temp;
+                nonZero = nonZero.next;
             }
-            else{
-                nonZero.next=temp;
-                nonZero=nonZero.next;
-            }
-            temp=temp.next;
+            temp = temp.next;
         }
 
-        zero.next=nonZeroHead.next;
-        nonZero.next=null;
+        zero.next = nonZeroHead.next;
+        nonZero.next = null;
         return zeroHead.next;
     }
 
-
     // Delete a given node in a linkedllist;
 
-    public void delete(int x){
-        Node temp=head;
-        Node prev=null;
-        for(int i=1;i<x;i++){
-            prev=temp;
-            temp=temp.next;
+    public void delete(int x) {
+        Node temp = head;
+        Node prev = null;
+        for (int i = 1; i < x; i++) {
+            prev = temp;
+            temp = temp.next;
         }
-        prev.next=temp.next;
+        prev.next = temp.next;
     }
-
 
     /*
      * Insert in a sorted linkedlist
      */
-    Node insertInSorted(int key){
-        if(head==null){
+    Node insertInSorted(int key) {
+        if (head == null) {
             return null;
         }
-        
-        Node temp=head;
-        Node prev=null;
 
-        while(temp!=null && temp.data<key){
-            prev=temp;
-            temp=temp.next;
+        Node temp = head;
+        Node prev = null;
+
+        while (temp != null && temp.data < key) {
+            prev = temp;
+            temp = temp.next;
         }
 
         Node newNode = new Node(key);
-        
-        if(prev==null){
-            newNode.next=head;
-            head=newNode;
-        }else{
-            prev.next=newNode;
-            newNode.next=temp;
+
+        if (prev == null) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            prev.next = newNode;
+            newNode.next = temp;
         }
         return head;
     }
 
     /*
      * Remove Nth Node From End of List
-     * Given the head of a linked list, remove the nth node from the end of the list and return its head.
+     * Given the head of a linked list, remove the nth node from the end of the list
+     * and return its head.
      */
 
-     public void deleteFromEnd(int n){
-        Node slow=head;
-        Node fast=head;
+    public void deleteFromEnd(int n) {
+        Node slow = head;
+        Node fast = head;
 
-        for(int i=1;i<=n;i++){
-            fast=fast.next;
+        for (int i = 1; i <= n; i++) {
+            fast = fast.next;
         }
-        while(fast.next!=null){
-            slow=slow.next;
-            fast=fast.next;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
-        slow.next=slow.next.next;
-     }
+        slow.next = slow.next.next;
+    }
 
-
-     /*
-      * Given a linked list sorted in ascending order and an integer called key,
-       insert data in the linked list such that the list remains sorted.
-      */
-      Node sortedInsert(Node head, int key) {
-      if(head==null){
+    /*
+     * Given a linked list sorted in ascending order and an integer called key,
+     * insert data in the linked list such that the list remains sorted.
+     */
+    Node sortedInsert(Node head, int key) {
+        if (head == null) {
             return new Node(key);
         }
-        
-       
-        Node temp=head;
-        Node prev=null;
-        while(temp!=null && key>temp.data){
-            prev=temp;
-            temp=temp.next;
+
+        Node temp = head;
+        Node prev = null;
+        while (temp != null && key > temp.data) {
+            prev = temp;
+            temp = temp.next;
         }
-        
-        
+
         Node newNode = new Node(key);
-        if(prev==null){
-            newNode.next=head;
-            head=newNode;
+        if (prev == null) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            prev.next = newNode;
+            newNode.next = temp;
         }
-        else{
-            prev.next=newNode;
-            newNode.next=temp;
-        }
-        
+
         return head;
     }
 
-    /* 
-     *Given an unsorted linked list. The task is to remove duplicate elements from this unsorted Linked List. 
-     When a value appears in multiple nodes, 
-     the node which appeared first should be kept, all other duplicates are to be removed. 
-    */
+    /*
+     * Given an unsorted linked list. The task is to remove duplicate elements from
+     * this unsorted Linked List.
+     * When a value appears in multiple nodes,
+     * the node which appeared first should be kept, all other duplicates are to be
+     * removed.
+     */
 
-     public Node removeDuplicates(Node head) {
+    public Node removeDuplicates(Node head) {
         // Your code here
         java.util.LinkedHashSet<Integer> nodes = new java.util.LinkedHashSet<>();
-        Node temp=head;
-        while(temp!=null){
+        Node temp = head;
+        while (temp != null) {
             nodes.add(temp.data);
-            temp=temp.next;
+            temp = temp.next;
         }
-        
+
         Node newHead = new Node(-1);
-        Node dummy=newHead;
-        for(int i:nodes){
+        Node dummy = newHead;
+        for (int i : nodes) {
             dummy.next = new Node(i);
-            dummy=dummy.next;
+            dummy = dummy.next;
         }
         return newHead.next;
     }
-
 
     /*
      * 
      */
 
-public static Node findIntersection(Node head1, Node head2) {
-    HashMap<Integer, Integer> map = new HashMap<>();
-    
-    // Count frequencies of elements in list1
-    Node temp1 = head1;
-    while (temp1 != null) {
-        map.put(temp1.data, map.getOrDefault(temp1.data, 0) + 1);
-        temp1 = temp1.next;
-    }
-    
-    Node dummy = new Node(-1);
-    Node temp = dummy;
-    
-    // For elements in list2, if they appear in map and count > 0, add to result
-    Node temp2 = head2;
-    while (temp2 != null) {
-        int count = map.getOrDefault(temp2.data, 0);
-        if (count > 0) {
-            temp.next = new Node(temp2.data);
-            temp = temp.next;
-            map.put(temp2.data, count - 1); // decrement count to avoid duplicates
-        }
-        temp2 = temp2.next;
-    }
-    
-    return dummy.next;
-}
+    public static Node findIntersection(Node head1, Node head2) {
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-/*
- * Given the head of two sorted linked lists consisting of nodes respectively.
- * The task is to merge both lists and return the head of the sorted merged list.
- */
+        // Count frequencies of elements in list1
+        Node temp1 = head1;
+        while (temp1 != null) {
+            map.put(temp1.data, map.getOrDefault(temp1.data, 0) + 1);
+            temp1 = temp1.next;
+        }
+
+        Node dummy = new Node(-1);
+        Node temp = dummy;
+
+        // For elements in list2, if they appear in map and count > 0, add to result
+        Node temp2 = head2;
+        while (temp2 != null) {
+            int count = map.getOrDefault(temp2.data, 0);
+            if (count > 0) {
+                temp.next = new Node(temp2.data);
+                temp = temp.next;
+                map.put(temp2.data, count - 1); // decrement count to avoid duplicates
+            }
+            temp2 = temp2.next;
+        }
+
+        return dummy.next;
+    }
+
+    public Node deleteDuplicates(Node head) {
+
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node dummy = new Node(0);
+        dummy.next = head;
+        Node prev = dummy;
+        Node current = head;
+
+        while (current != null) {
+            boolean isDuplicate = false;
+            while (current.next != null && current.data == current.next.data) {
+                current = current.next;
+                isDuplicate = true;
+            }
+            if (isDuplicate) {
+                prev.next = current.next;
+            } else {
+                prev = prev.next;
+            }
+            current = current.next;
+        }
+        return dummy.next;
+    }
 
 }
 
@@ -347,20 +362,14 @@ public class Main {
 
     public static void main(String[] args) {
         LinkedList l1 = new LinkedList();
+
+        l1.insertAtEnd(1);
+        l1.insertAtEnd(1);
         l1.insertAtEnd(1);
         l1.insertAtEnd(2);
         l1.insertAtEnd(3);
-        l1.insertAtEnd(4);
-        l1.insertAtEnd(6);
 
-       LinkedList l2 = new LinkedList();
-       l2.insertAtEnd(2);
-       l2.insertAtEnd(4);
-       l2.insertAtEnd(6);
-
-
-       Node intersection = LinkedList.findIntersection(l1.head, l2.head);
-       LinkedList.printList(intersection);
+        LinkedList.printList(l1.deleteDuplicates(l1.head));
 
     }
 
