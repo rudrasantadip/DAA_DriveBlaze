@@ -50,7 +50,7 @@ class Stack{
      * Peek :- Returns the top value 
      */
 
-     public Integer peek(){
+    public Integer peek(){
         if(head==null){
             System.out.println("Stack is empty");
             return -1;
